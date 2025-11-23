@@ -70,3 +70,88 @@ Interface	Crie a interface Documento com o método clone().	Implementação corr
 Protótipo Concreto	Crie a classe Contrato que implementa o método de clonagem.	Personalização dos documentos clonados sem alterar o documento base.
 Teste	Crie a classe SistemaDocumentos para simular a clonagem.	Verificação de que as alterações nos clones não afetam o protótipo original.
 Saída Esperada	A saída deve mostrar as informações do contrato base e dos clones personalizados.	Testes que simulam a criação de múltiplos contratos a partir de um protótipo base.
+
+# 🧩 Padrões Estruturais e Comportamentais GoF
+
+Esta seção agrupa as atividades focadas em padrões de organização de classes e objetos (Estruturais) e de comunicação entre objetos (Comportamentais).
+
+## 🔗 Questão 1: Padrão Adapter (Integração de Pagamentos)
+
+### Cenário Fictício
+
+Um e-commerce precisa integrar novas APIs de pagamento (PayPal, Stripe) que possuem interfaces incompatíveis com o sistema interno existente.
+
+### Objetivo
+
+Utilizar o padrão Adapter para converter as interfaces externas (PayPal e Stripe) para a interface interna do sistema (Pagamento), sem modificar o código existente.
+
+### Requisitos Funcionais:
+
+- Criar a interface Pagamento (Target).
+- Simular as APIs externas APIServicePayPal e APIServiceStripe (Adaptees).
+- Implementar as classes PayPalAdapter e StripeAdapter para traduzir as chamadas das APIs externas para a interface Pagamento.
+
+### Estrutura Proposta:
+
+O sistema de teste (SistemaPagamento) deve interagir apenas com a interface Pagamento, comprovando que os adaptadores permitem o uso das APIs externas de forma transparente.
+
+## 🌉 Questão 2: Padrão Bridge (Controle de Automação Residencial)
+
+### Cenário Fictício
+
+Um sistema de automação residencial precisa controlar diversos Dispositivos (lâmpadas, ventiladores, câmeras) por múltiplos Meios de Controle (app, controle remoto, painel).
+
+### Objetivo
+
+Aplicar o padrão Bridge para desacoplar a Abstração (os Meios de Controle) da Implementação (os Dispositivos), permitindo que novas funcionalidades sejam adicionadas independentemente em qualquer hierarquia.
+
+### Requisitos Funcionais:
+
+- Criar a hierarquia de Implementações (Interface Dispositivo e classes concretas como Lâmpada, Ventilador).
+- Criar a hierarquia de Abstrações (Classe base Controle e classes concretas como AplicativoMovel, ControleRemoto).
+- A classe Controle deve conter uma referência à interface Dispositivo (a "ponte").
+
+### Estrutura Proposta:
+
+O teste (SistemaAutomacaoResidencial) deve simular o controle de diferentes dispositivos por diferentes meios, provando a flexibilidade e o desacoplamento.
+
+## 🎬 Questão 3: Padrão Facade (Sistema de Cinema Online)
+
+### Cenário Fictício
+
+Um sistema de streaming de filmes possui subsistemas complexos (Login, Pagamento, Reprodução de Vídeo). É necessário criar uma interface simplificada para o usuário realizar a ação completa de "Assistir Filme".
+
+### Objetivo
+
+Implementar o padrão Facade para criar uma interface unificada (CinemaFacade) que agrupe e orquestre as operações dos subsistemas internos, escondendo sua complexidade.
+
+### Requisitos Funcionais:
+
+- Criar os subsistemas separados: SubSistemaLogin, SubSistemaPagamento e SubSistemaReproducao.
+- Implementar a classe CinemaFacade que compõe esses subsistemas.
+- O Facade deve oferecer um único método (assistirFilme) para executar a sequência completa de operações (login $\rightarrow$ pagamento $\rightarrow$ reprodução).
+
+### Estrutura Proposta:
+
+O teste (SistemaStreaming) deve demonstrar que o processo completo (login, pagamento, reprodução) pode ser iniciado com uma única chamada ao método da Fachada.
+
+## 🃏 Questão 4: Padrão Flyweight (Jogo de Cartas Online)
+
+### Cenário Fictício
+
+Um jogo de cartas online envolve um grande volume de cartas idênticas (mesmo Valor e Naipe) que se repetem em vários baralhos e mãos de jogadores. É necessário otimizar a memória.
+
+### Objetivo
+
+Implementar o padrão Flyweight para garantir que cartas idênticas sejam compartilhadas e reutilizadas (estado intrínseco), em vez de criar múltiplas instâncias repetidas, otimizando o uso de memória.
+
+### Requisitos Funcionais:
+
+- Criar a classe Carta (Flyweight Concreto), contendo o estado intrínseco (Valor e Naipe).
+- Implementar a CartaFactory (Flyweight Factory) para gerenciar o pool de instâncias, reutilizando cartas existentes.
+- A simulação deve provar que a fábrica cria novas instâncias de cartas apenas quando uma combinação única é solicitada pela primeira vez.
+
+### Estrutura Proposta:
+
+O teste (JogoDeCartas) deve mostrar que, ao requisitar a mesma carta para diferentes jogadores, a fábrica retorna a mesma instância, resultando em um baixo número total de objetos de Carta criados.
+
